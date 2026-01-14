@@ -1,0 +1,66 @@
+import { useSelector, useDispatch } from "react-redux";
+import { VStack, Panel, Heading, Tag, Button, HStack } from "rsuite";
+import { removeProduct } from "../../features/productsSlice";
+
+function Products() {
+  const products = useSelector((state) => state.products.products);
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    dispatch(removeProduct(id));
+  };
+
+  return (
+    <VStack spacing={24} style={{ padding: 30 }}>
+      <Heading level={2}>Mahsulotlar</Heading>
+
+      <div
+        style={{
+          display: "flex",
+          gap: 24,
+          flexWrap: "wrap",
+        }}>
+        {products.map((product) => (
+          <Panel
+            key={product.id}
+            bordered
+            shaded
+            style={{
+              width: 300, 
+              padding: 20,
+              borderRadius: 12,
+            }}>
+            <Heading level={4} style={{ marginBottom: 8 }}>
+              {product.title}
+            </Heading>
+
+            <p style={{ marginBottom: 12 }}>{product.description}</p>
+
+            <Tag color="green" size="lg">
+              {product.price} so‘m
+            </Tag>
+
+            <HStack spacing={8} style={{ marginTop: 12 }}>
+              <Button
+                color="blue"
+                appearance="primary"
+                size="sm"
+                onClick={() => alert("Sotib olindi!")}>
+                Sotib olish
+              </Button>
+              <Button
+                color="red"
+                appearance="primary"
+                size="sm"
+                onClick={() => handleDelete(product.id)}>
+                O‘chirish
+              </Button>
+            </HStack>
+          </Panel>
+        ))}
+      </div>
+    </VStack>
+  );
+}
+
+export default Products;

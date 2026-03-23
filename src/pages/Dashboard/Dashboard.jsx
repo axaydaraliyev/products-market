@@ -1,37 +1,75 @@
-import { Center, List } from "rsuite";
-
-const assignments = [
-  {
-    id: 1,
-    text: "Mahsulot qo'shish bo'limida form yaratilsin va ushbu form orqali yangi mahsulot qo'shish mumkin bo'lsin.",
-  },
-  {
-    id: 2,
-    text: `Har bir mahsulotning id, title, description, price hossalari bo'lishi kerak.`,
-  },
-  {
-    id: 3,
-    text: `Qo'shilgan mahsulot "Redux-toolkit" yoki "Context-api" yoki "Zustand" lardan biriga saqlansin va localstorage'ga ham saqlansin`,
-  },
-  {
-    id: 4,
-    text: `Barcha yaratilgan mahsulotlar "Mahsulotlar bo'limiga chiroyli tarzda chiqarilsin"`,
-  },
-];
+import { useSelector, useDispatch } from "react-redux";
+import { VStack, Panel, Heading, Tag, Button, HStack, Center } from "rsuite";
+import { removeFromCart } from "../../features/cartSlice";
 
 function Dashboard() {
+  const cart = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
+
+  const handleRemove = (id) => {
+    dispatch(removeFromCart(id));
+  };
+
   return (
-    <Center w={"100%"} h={"100%"}>
-      <List bordered>
-        {assignments.map((a) => {
-          return (
-            <List.Item key={a.id} fontSize={16}>
-              {a.id} - {a.text}
-            </List.Item>
-          );
-        })}
-      </List>
-    </Center>
+    <VStack spacing={24} style={{ padding: 30 }}>
+      <Heading level={2}>Savatdagi mahsulotlar</Heading>
+
+      {cart.length === 0 ? (
+        <Center>
+          <p>Savat bo'sh</p>
+        </Center>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            gap: 24,
+            flexWrap: "wrap",
+          }}>
+          {cart.map((product) => (
+            <Panel
+              key={product.id}
+              bordered
+              shaded
+              style={{
+                width: 300,
+                padding: 20,
+                borderRadius: 12,
+              }}>
+              <Heading level={4} style={{ marginBottom: 8 }}>
+                {product.title}
+              </Heading>
+              {product.image && (
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  style={{
+                    width: "100%",
+                    height: 150,
+                    objectFit: "cover",
+                    marginBottom: 12,
+                  }}
+                />
+              )}
+              <p style={{ marginBottom: 12 }}>{product.description}</p>
+
+              <Tag color="green" size="lg">
+                {product.price} so&apos;m
+              </Tag>
+
+              <HStack spacing={8} style={{ marginTop: 12 }}>
+                <Button
+                  color="red"
+                  appearance="primary"
+                  size="sm"
+                  onClick={() => handleRemove(product.id)}>
+                  Olib tashlash
+                </Button>
+              </HStack>
+            </Panel>
+          ))}
+        </div>
+      )}
+    </VStack>
   );
 }
 

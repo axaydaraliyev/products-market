@@ -2,7 +2,7 @@ import {
   MdOutlineAssignment,
   MdOutlineShoppingCart,
   MdAddShoppingCart,
-  MdAccessTime,
+  MdBuild,
 } from "react-icons/md";
 
 import { Sidenav, Nav, Box } from "rsuite";
@@ -21,22 +21,22 @@ function Sidebar() {
         <Sidenav.Body>
           <Nav>
             <Nav.Item as={Link} to={"/"} icon={<MdOutlineAssignment />}>
-              Topshiriqlar
+              Olingan maxsulotlar
             </Nav.Item>
             <Nav.Item
               as={Link}
-              to={"/products"}
+              to={"/yeguliklar"}
               icon={<MdOutlineShoppingCart />}>
-              Mahsulotlar
+              Yeguliklar
+            </Nav.Item>
+            <Nav.Item as={Link} to={"/anjomlar"} icon={<MdBuild />}>
+              Anjomlar
             </Nav.Item>
             <Nav.Item
               as={Link}
               to={"/create-products"}
               icon={<MdAddShoppingCart />}>
               Mahsulot qo&apos;shish
-            </Nav.Item>
-            <Nav.Item as={Link} to={"/time"} icon={<MdAccessTime />}>
-              Vaqt
             </Nav.Item>
           </Nav>
         </Sidenav.Body>

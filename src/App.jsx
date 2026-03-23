@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Products from "./pages/Products/Products";
 import CreateProduct from "./pages/CreateProduct/CreateProduct";
 import Time from "./pages/Time/Time";
+import Anjomlar from "./pages/Anjomlar/Anjomlar";
+import Yeguliklar from "./pages/Yeguliklar/Yeguliklar";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +29,14 @@ function App() {
         {
           path: "/time",
           element: <Time />,
+        },
+        {
+          path: "/anjomlar",
+          element: <Anjomlar />,
+        },
+        {
+          path: "/yeguliklar",
+          element: <Yeguliklar />,
         },
       ],
     },

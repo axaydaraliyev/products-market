@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { VStack, Panel, Heading, Tag, Button, HStack } from "rsuite";
 import { removeProduct } from "../../features/productsSlice";
+import { addToCart } from "../../features/cartSlice";
 
-function Products() {
+function Anjomlar() {
   const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
 
@@ -10,25 +11,26 @@ function Products() {
     dispatch(removeProduct(id));
   };
 
-  const yegulikProducts = products.filter(
-    (product) => product.type === "yegulik",
-  );
+  const handleBuy = (product) => {
+    dispatch(addToCart(product));
+    dispatch(removeProduct(product.id));
+  };
+
   const anjomlarProducts = products.filter(
     (product) => product.type === "anjomlar",
   );
 
-  const renderProducts = (productList, title) => (
-    <div>
-      <Heading level={3} style={{ marginBottom: 16 }}>
-        {title}
-      </Heading>
+  return (
+    <VStack spacing={24} style={{ padding: 30 }}>
+      <Heading level={2}>Anjomlar</Heading>
+
       <div
         style={{
           display: "flex",
           gap: 24,
           flexWrap: "wrap",
         }}>
-        {productList.map((product) => (
+        {anjomlarProducts.map((product) => (
           <Panel
             key={product.id}
             bordered
@@ -41,7 +43,18 @@ function Products() {
             <Heading level={4} style={{ marginBottom: 8 }}>
               {product.title}
             </Heading>
-
+            {product.image && (
+              <img
+                src={product.image}
+                alt={product.title}
+                style={{
+                  width: "100%",
+                  height: 150,
+                  objectFit: "cover",
+                  marginBottom: 12,
+                }}
+              />
+            )}
             <p style={{ marginBottom: 12 }}>{product.description}</p>
 
             <Tag color="green" size="lg">
@@ -53,7 +66,7 @@ function Products() {
                 color="blue"
                 appearance="primary"
                 size="sm"
-                onClick={() => alert("Sotib olindi!")}>
+                onClick={() => handleBuy(product)}>
                 Sotib olish
               </Button>
               <Button
@@ -67,17 +80,8 @@ function Products() {
           </Panel>
         ))}
       </div>
-    </div>
-  );
-
-  return (
-    <VStack spacing={24} style={{ padding: 30 }}>
-      <Heading level={2}>Mahsulotlar</Heading>
-
-      {renderProducts(yegulikProducts, "Yegulik")}
-      {renderProducts(anjomlarProducts, "Anjomlar")}
     </VStack>
   );
 }
 
-export default Products;
+export default Anjomlar;

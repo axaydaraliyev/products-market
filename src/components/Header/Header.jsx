@@ -6,12 +6,16 @@ function Header() {
 
   const title =
     pathname == "/"
-      ? "Topshiriqlar"
+      ? "Savatga olingan mahsulotlar"
       : pathname == "/products"
-      ? "Mahsulotlar"
-      : pathname == "/create-products"
-      ? "Mahsulot qo'shish"
-      : "Vaqt";
+        ? "Mahsulotlar"
+        : pathname == "/create-products"
+          ? "Mahsulot qo'shish"
+          : pathname == "/anjomlar"
+            ? "Anjomlar"
+            : pathname == "/yeguliklar"
+              ? "Yeguliklar"
+              : "Vaqt";
 
   return (
     <Navbar w={"100%"} py={24}>

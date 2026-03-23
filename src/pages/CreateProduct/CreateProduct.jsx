@@ -11,6 +11,7 @@ import {
   HStack,
   toaster,
   Message,
+  SelectPicker,
 } from "rsuite";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../features/productsSlice";
@@ -20,8 +21,21 @@ function CreateProduct() {
     title: "",
     description: "",
     price: "",
+    type: "",
+    image: "",
   });
   const dispatch = useDispatch();
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFormValue({ ...formValue, image: e.target.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = () => {
     // Yangi mahsulot qo'shish logikasi
@@ -36,10 +50,16 @@ function CreateProduct() {
       <Message showIcon type="success" closable>
         Mahsulot muvaffaqiyatli qo&apos;shildi!
       </Message>,
-      { placement: "topCenter", duration: 3000 }
+      { placement: "topCenter", duration: 3000 },
     );
     // Bu yerda API ga yuborish yoki localStorage ga saqlash mumkin
-    setFormValue({ title: "", description: "", price: "" });
+    setFormValue({
+      title: "",
+      description: "",
+      price: "",
+      type: "",
+      image: "",
+    });
   };
 
   return (
@@ -84,6 +104,28 @@ function CreateProduct() {
               type="number"
               step="0.01"
               placeholder="Narxni kiriting"
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="type">
+            <Form.ControlLabel>Tur</Form.ControlLabel>
+            <Form.Control
+              name="type"
+              accepter={SelectPicker}
+              data={[
+                { label: "Yegulik", value: "yegulik" },
+                { label: "Anjomlar", value: "anjomlar" },
+              ]}
+              placeholder="Turini tanlang"
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="image">
+            <Form.ControlLabel>Rasm</Form.ControlLabel>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
               required
             />
           </Form.Group>

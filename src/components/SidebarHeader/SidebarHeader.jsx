@@ -15,7 +15,7 @@ const SidebarHeader = ({ expanded }) => {
     <VStack p="10px 10px 0 10px" spacing={12}>
       <HStack cursor={"pointer"}>
         <RiQuillPenFill size={32} />
-        <Heading level={2}>Imtihon</Heading>
+        <Heading level={2}>Online Shop</Heading>
       </HStack>
     </VStack>
   );

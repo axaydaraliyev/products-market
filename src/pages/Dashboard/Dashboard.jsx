@@ -16,7 +16,7 @@ function Dashboard() {
 
       {cart.length === 0 ? (
         <Center>
-          <p>Savat bo'sh</p>
+          <p>Savat bo&apos;sh</p>
         </Center>
       ) : (
         <div

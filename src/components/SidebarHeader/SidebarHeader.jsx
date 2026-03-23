@@ -1,4 +1,4 @@
-import { RiQuillPenFill } from "react-icons/ri";
+import { MdShoppingCart } from "react-icons/md";
 import { HStack, VStack, Heading } from "rsuite";
 import PropTypes from "prop-types";
 
@@ -6,7 +6,7 @@ const SidebarHeader = ({ expanded }) => {
   if (!expanded) {
     return (
       <HStack justifyContent="center">
-        <RiQuillPenFill size={32} />
+        <MdShoppingCart size={32} />
       </HStack>
     );
   }
@@ -14,7 +14,7 @@ const SidebarHeader = ({ expanded }) => {
   return (
     <VStack p="10px 10px 0 10px" spacing={12}>
       <HStack cursor={"pointer"}>
-        <RiQuillPenFill size={32} />
+        <MdShoppingCart size={32} />
         <Heading level={2}>Online Shop</Heading>
       </HStack>
     </VStack>
